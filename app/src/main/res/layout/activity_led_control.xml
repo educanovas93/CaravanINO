@@ -27,25 +27,25 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="195dp"
+        android:background="@drawable/rounded_button"
         android:fadingEdge="none"
+        android:fontFamily="sans-serif-smallcaps"
         android:textColor="#212121"
         android:textSize="30sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:background="@drawable/rounded_button"
         tools:text="ON"
         tools:typeface="monospace" />
 
     <Button
+        android:id="@+id/off_btn"
         android:layout_width="170dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp"
-        android:textColor="#212121"
-        android:fadingEdge="none"
-        android:id="@+id/off_btn"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textSize="30sp"
         android:background="@drawable/rounded_button"
+        android:fadingEdge="none"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#212121"
+        android:textSize="30sp"
         tools:text="OFF"
         tools:typeface="monospace" />
 
