@@ -1,7 +1,7 @@
 package com.led_on_off.led;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class DeviceList extends ActionBarActivity
+public class DeviceList extends AppCompatActivity
 {
     //widgets
     Button btnPaired;
@@ -99,7 +99,8 @@ public class DeviceList extends ActionBarActivity
             String address = info.substring(info.length() - 17);
 
             // Make an intent to start next activity.
-            Intent i = new Intent(DeviceList.this, ledControl.class);
+            //            Intent i = new Intent(DeviceList.this, mainMenu.class);
+            Intent i = new Intent(DeviceList.this, MainMenuActivity.class);
 
             //Change the activity.
             i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity

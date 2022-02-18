@@ -1,26 +1,24 @@
 package com.led_on_off.led;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.UUID;
 
 
-public class ledControl extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
    // Button btnOn, btnOff, btnDis;
     Button On, Off, Discnt, Abt;
@@ -41,7 +39,7 @@ public class ledControl extends AppCompatActivity {
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
 
         //view of the ledControl
-        setContentView(R.layout.activity_led_control);
+        setContentView(R.layout.activity_main_menu);
 
         //call the widgets
         On = (Button)findViewById(R.id.on_btn);
@@ -172,7 +170,7 @@ public class ledControl extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+            progress = ProgressDialog.show(MainMenuActivity.this, "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
         @Override

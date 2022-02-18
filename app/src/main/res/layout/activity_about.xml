@@ -31,17 +31,17 @@
         android:src="@drawable/developer" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The LED controller application is developed by Mayoogh Girish                 This application allows you to control a LED via Bluetooth "
-        android:id="@+id/textView4"
-        android:textSize="22dp"
-        android:textColor="#f44336"
-        android:fontFamily="sans-serif-smallcaps"
         android:layout_below="@+id/developer"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp" />
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="The LED controller application is developed by Mayoogh Girish                 This application allows you to control a LED via Bluetooth "
+        android:textColor="#f44336"
+        android:textSize="22dp" />
 
 
     <ImageButton
