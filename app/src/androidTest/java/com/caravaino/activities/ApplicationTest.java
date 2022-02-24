@@ -1,4 +1,4 @@
-package com.led_on_off.led;
+package com.caravaino.activities;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

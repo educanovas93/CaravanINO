@@ -1,4 +1,4 @@
-package com.led_on_off.led;
+package com.caravaino.activities;
 
 import android.content.Intent;
 import android.net.Uri;

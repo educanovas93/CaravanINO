@@ -1,33 +1,33 @@
-package com.led_on_off.led;
+package com.caravaino.activities;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.caravaino.controller.Caravaino;
 
 import java.io.IOException;
 import java.util.UUID;
 
 
-public class ledControl extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
    // Button btnOn, btnOff, btnDis;
     Button On, Off, Discnt, Abt;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
-    BluetoothSocket btSocket = null;
+    Caravaino controlador = Caravaino.getUnicaInstancia();
     private boolean isBtConnected = false;
     //SPP UUID. Look for it
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -38,10 +38,10 @@ public class ledControl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent newint = getIntent();
-        address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
-
+        //address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
+        address = Caravaino.getUnicaInstancia().getAddress();
         //view of the ledControl
-        setContentView(R.layout.activity_led_control);
+        setContentView(R.layout.activity_main_menu);
 
         //call the widgets
         On = (Button)findViewById(R.id.on_btn);
@@ -83,11 +83,11 @@ public class ledControl extends AppCompatActivity {
 
     private void Disconnect()
     {
-        if (btSocket!=null) //If the btSocket is busy
+        if (controlador.btSocket!=null) //If the btSocket is busy
         {
             try
             {
-                btSocket.close(); //close connection
+                controlador.getBtSocket().close(); //close connection
             }
             catch (IOException e)
             { msg("Error");}
@@ -98,11 +98,11 @@ public class ledControl extends AppCompatActivity {
 
     private void turnOffLed()
     {
-        if (btSocket!=null)
+        if (controlador.getBtSocket() !=null)
         {
             try
             {
-                btSocket.getOutputStream().write("0".toString().getBytes());
+                controlador.getBtSocket().getOutputStream().write("0".toString().getBytes());
             }
             catch (IOException e)
             {
@@ -113,11 +113,11 @@ public class ledControl extends AppCompatActivity {
 
     private void turnOnLed()
     {
-        if (btSocket!=null)
+        if (controlador.getBtSocket() != null)
         {
             try
             {
-                btSocket.getOutputStream().write("1".toString().getBytes());
+                controlador.getBtSocket().getOutputStream().write("1".toString().getBytes());
             }
             catch (IOException e)
             {
@@ -172,7 +172,7 @@ public class ledControl extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+            progress = ProgressDialog.show(MainMenuActivity.this, "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
         @Override
@@ -180,13 +180,13 @@ public class ledControl extends AppCompatActivity {
         {
             try
             {
-                if (btSocket == null || !isBtConnected)
+                if (controlador.getBtSocket() == null || !isBtConnected)
                 {
                  myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
                  BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
-                 btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                 controlador.setBtSocket(dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID));//create a RFCOMM (SPP) connection
                  BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-                 btSocket.connect();//start connection
+                 controlador.getBtSocket().connect();//start connection
                 }
             }
             catch (IOException e)

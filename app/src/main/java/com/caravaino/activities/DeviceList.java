@@ -1,4 +1,4 @@
-package com.led_on_off.led;
+package com.caravaino.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.caravaino.controller.Caravaino;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -103,6 +105,7 @@ public class DeviceList extends AppCompatActivity
             Intent i = new Intent(DeviceList.this, MainMenuActivity.class);
 
             //Change the activity.
+            Caravaino.getUnicaInstancia().setAddress(address);
             i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
             startActivity(i);
         }
