@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class DeviceList extends AppCompatActivity
+public class DeviceListActivity extends AppCompatActivity
 {
     //widgets
     Button btnPaired;
@@ -102,11 +102,11 @@ public class DeviceList extends AppCompatActivity
 
             // Make an intent to start next activity.
             //            Intent i = new Intent(DeviceList.this, mainMenu.class);
-            Intent i = new Intent(DeviceList.this, MainMenuActivity.class);
+            Intent i = new Intent(DeviceListActivity.this, MainMenuActivity.class);
 
             //Change the activity.
             Caravaino.getUnicaInstancia().setAddress(address);
-            i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
+            //i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
             startActivity(i);
         }
     };

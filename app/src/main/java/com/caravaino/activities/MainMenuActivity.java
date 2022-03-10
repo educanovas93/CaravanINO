@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caravaino.controller.Caravaino;
@@ -24,6 +25,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
    // Button btnOn, btnOff, btnDis;
     Button On, Off, Discnt, Abt;
+    TextView lucesText,tempText,levelText;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
@@ -44,46 +46,24 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         //call the widgets
-        On = (Button)findViewById(R.id.on_btn);
-        Off = (Button)findViewById(R.id.off_btn);
-        Discnt = (Button)findViewById(R.id.dis_btn);
-        Abt = (Button)findViewById(R.id.abt_btn);
+        lucesText = (TextView)findViewById(R.id.luces);
 
         new ConnectBT().execute(); //Call the class to connect
 
+        lucesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToLuces();
+            }
+        });
         //commands to be sent to bluetooth
-        On.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                turnOnLed();      //method to turn on
-            }
-        });
-
-        Off.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                turnOffLed();   //method to turn off
-            }
-        });
-
-        Discnt.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Disconnect(); //close connection
-            }
-        });
 
 
     }
 
     private void Disconnect()
     {
-        if (controlador.btSocket!=null) //If the btSocket is busy
+        if (controlador.getBtSocket() != null) //If the btSocket is busy
         {
             try
             {
@@ -139,6 +119,11 @@ public class MainMenuActivity extends AppCompatActivity {
             Intent i = new Intent(this, AboutActivity.class);
             startActivity(i);
         }
+    }
+    public  void goToLuces()
+    {
+            Intent i = new Intent(this, LucesActivity.class);
+            startActivity(i);
     }
 
     @Override

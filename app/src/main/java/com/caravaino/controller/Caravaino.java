@@ -2,6 +2,8 @@ package com.caravaino.controller;
 
 import android.bluetooth.BluetoothSocket;
 
+import java.io.IOException;
+
 public class Caravaino {
 
     private static Caravaino caravaino = null;
@@ -26,6 +28,14 @@ public class Caravaino {
 
     public BluetoothSocket getBtSocket() {
         return btSocket;
+    }
+
+    public void sendMessageBt(String message){
+        try{
+            btSocket.getOutputStream().write(message.getBytes());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void setBtSocket(BluetoothSocket btSocket) {
