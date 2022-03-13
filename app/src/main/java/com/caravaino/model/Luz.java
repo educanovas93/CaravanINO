@@ -5,12 +5,12 @@ public class Luz {
     private boolean isTurned;
     private String nombre;
     private int id;
+    private int intensidad;
     public Luz(int id,boolean isTurned,int intensidad){
-
-    }
-    public Luz(String nombre, boolean isTurned){
-        this.nombre = nombre;
+        this.id = id;
         this.isTurned = isTurned;
+        this.intensidad = intensidad;
+        this.nombre = "Luz"+id;
     }
     public boolean isTurned() {
         return isTurned;
@@ -29,6 +29,9 @@ public class Luz {
     }
 
     public String getStatus(){
-        return ("#L"+id+" ");
+        return ("#L"+id+" "+(isTurned ? "1":"0")+" "+intensidad);
+    }
+    public void setIntensidad(int intensidad){
+        this.intensidad = intensidad;
     }
 }

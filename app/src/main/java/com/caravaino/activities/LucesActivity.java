@@ -27,10 +27,14 @@ public class LucesActivity extends AppCompatActivity {
 
 
         //Cargamos luces de prueba
-        Luz luzPasillo = new Luz("Pasillo",true);
-        Luz luzDelantera = new Luz("Delantera",true);
-        Luz luzTrasera = new Luz("Trasera",false);
-        Luz luzOtra = new Luz("Otra",true);
+        Luz luzPasillo = new Luz(0,true,100);
+        luzPasillo.setNombre("Pasillo");
+        Luz luzDelantera = new Luz(1,true,100);
+        luzDelantera.setNombre("Delantera");
+        Luz luzTrasera = new Luz(2,false,100);
+        luzTrasera.setNombre("Trasera");
+        Luz luzOtra = new Luz(3,true,100);
+        luzOtra.setNombre("Otra");
         this.lucesList.add(luzPasillo);
         this.lucesList.add(luzDelantera);
         this.lucesList.add(luzTrasera);
