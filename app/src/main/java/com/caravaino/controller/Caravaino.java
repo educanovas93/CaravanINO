@@ -32,7 +32,9 @@ public class Caravaino {
 
     public void sendMessageBt(String message){
         try{
-            btSocket.getOutputStream().write(message.getBytes());
+            System.err.print("ENVIANDO MENSAJE: "+message);
+            String m = message+"\n";
+            btSocket.getOutputStream().write(m.getBytes());
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -25,12 +25,11 @@ public class LuzAdapter extends BaseAdapter {
     Activity context;
     List<Luz> lucesList;
     private static LayoutInflater inflater = null;
-    Caravaino controller;
+    Caravaino controller = Caravaino.getUnicaInstancia();
     public LuzAdapter(Activity context, List<Luz> lucesList) {
         this.context = context;
         this.lucesList = lucesList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Caravaino controller = Caravaino.getUnicaInstancia();
     }
 
 
@@ -65,6 +64,8 @@ public class LuzAdapter extends BaseAdapter {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
                 selectedLuz.setTurned(isChecked);
+                selectedLuz.setIntensidad(slider.getProgress());
+                System.err.println("STATUS: "+selectedLuz.getStatus());
                 controller.sendMessageBt(selectedLuz.getStatus());
             }
         });
@@ -78,6 +79,7 @@ public class LuzAdapter extends BaseAdapter {
                 progress = progresValue;
                 System.err.println("Progress: "+seekBar.getProgress());
                 selectedLuz.setIntensidad(seekBar.getProgress());
+                System.err.println("STATUS: "+selectedLuz.getStatus());
                 controller.sendMessageBt(selectedLuz.getStatus());
                 //Toast.makeText(context.getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
             }
