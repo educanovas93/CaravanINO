@@ -47,7 +47,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //call the widgets
         lucesText = (TextView)findViewById(R.id.luces);
-
+        tempText = (TextView)findViewById(R.id.temperatura);
+        levelText = (TextView) findViewById(R.id.nivelacion);
         new ConnectBT().execute(); //Call the class to connect
 
         lucesText.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +57,21 @@ public class MainMenuActivity extends AppCompatActivity {
                 goToLuces();
             }
         });
+
+        tempText.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToTemperaturas();
+            }
+        }));
+
+        levelText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToNivelacion();
+            }
+        });
+
         //commands to be sent to bluetooth
 
 
@@ -124,6 +140,14 @@ public class MainMenuActivity extends AppCompatActivity {
     {
             Intent i = new Intent(this, LucesActivity.class);
             startActivity(i);
+    }
+    public  void goToTemperaturas()
+    {
+        Intent i = new Intent(this, TemperaturaActivity.class);
+        startActivity(i);
+    }
+    public void goToNivelacion(){
+        Toast.makeText(getApplicationContext(),"Nivelación en construcción",Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -44,7 +44,5 @@ public class LucesActivity extends AppCompatActivity {
         luzRecycler.setVisibility(View.VISIBLE);
         luzAdapter = new LuzAdapter(this, lucesList);
         luzRecycler.setAdapter(luzAdapter);
-
-
     }
 }

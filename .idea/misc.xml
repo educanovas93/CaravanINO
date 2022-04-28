@@ -15,12 +15,14 @@
         <entry key="app/src/main/res/layout/activity_luces.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_temperaturas.xml" value="0.17477569580078126" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.22731301128000453" />
         <entry key="app/src/main/res/layout/luz_item.xml" value="0.35505981445312507" />
         <entry key="app/src/main/res/layout/main_menu.xml" value="0.22093353271484378" />
         <entry key="app/src/main/res/layout/menu_principal.xml" value="0.3088851928710938" />
         <entry key="app/src/main/res/layout/splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/switch_on_off.xml" value="0.25629882812500004" />
+        <entry key="app/src/main/res/layout/temperatura_item.xml" value="0.2649429321289062" />
       </map>
     </option>
   </component>
