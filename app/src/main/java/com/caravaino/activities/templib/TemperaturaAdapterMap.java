@@ -6,40 +6,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
-import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.caravaino.activities.R;
 import com.caravaino.controller.Caravaino;
-import com.caravaino.model.Luz;
 import com.caravaino.model.Temperatura;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class TemperaturaAdapter extends BaseAdapter {
+public class TemperaturaAdapterMap extends BaseAdapter {
     Activity context;
-    List<Temperatura> temperaturaList;
+    Map<Integer,Temperatura> temperaturaMap;
     private static LayoutInflater inflater = null;
     Caravaino controller = Caravaino.getUnicaInstancia();
-    public TemperaturaAdapter(Activity context, List<Temperatura> temperaturaList) {
+    public TemperaturaAdapterMap(Activity context, Map<Integer,Temperatura> temperaturaMap) {
         this.context = context;
-        this.temperaturaList = temperaturaList;
+        this.temperaturaMap = temperaturaMap;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
     public int getCount() {
-        return temperaturaList.size();
+        return temperaturaMap.values().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return temperaturaList.get(position);
+        List<Temperatura> l = new ArrayList(temperaturaMap.values());
+        return l.get(position);
+
     }
 
     @Override
@@ -55,7 +53,8 @@ public class TemperaturaAdapter extends BaseAdapter {
         TextView labelTemperatura = (TextView) itemView.findViewById(R.id.temperaturaLabel);
         TextView temperaturaValor = (TextView) itemView.findViewById(R.id.temperaturaValor);
 
-        Temperatura selectedTemperatura = temperaturaList.get(position);
+        List<Temperatura> l = new ArrayList(temperaturaMap.values());
+        Temperatura selectedTemperatura = l.get(position);
 
         //HACER LISTENER DE CAMBIO DE switch
         labelTemperatura.setText(selectedTemperatura.getNombre());

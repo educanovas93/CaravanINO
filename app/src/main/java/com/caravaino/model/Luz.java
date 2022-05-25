@@ -31,6 +31,9 @@ public class Luz {
     public String getStatus(){
         return ("#L"+id+" "+(isTurned ? "1":"0")+" "+intensidad);
     }
+    public void update(){
+
+    }
     public void setIntensidad(int intensidad){
         this.intensidad = intensidad;
     }

@@ -4,8 +4,8 @@ public class Temperatura {
 
     private int id;
     private String nombre;
-    private int valor;
-    public Temperatura (int id,String nombre,int valor){
+    private double valor;
+    public Temperatura (int id,String nombre,double valor){
         this.id = id;
         this.nombre = nombre;
         this.valor = valor;
@@ -27,11 +27,11 @@ public class Temperatura {
         this.nombre = nombre;
     }
 
-    public int getValor() {
-        return valor/10;
+    public double getValor() {
+        return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 }
