@@ -22,7 +22,6 @@ import java.util.TimerTask;
 
 public class TemperaturaActivity extends AppCompatActivity {
     private ListView temperaturaRecycler;
-
     private Map<Integer,Temperatura> mapaTemperaturas = new HashMap();
     private TemperaturaAdapterMap temperaturaAdapter;
     Caravaino controlador = Caravaino.getUnicaInstancia();
@@ -34,14 +33,19 @@ public class TemperaturaActivity extends AppCompatActivity {
 
     private Temperatura tratarTemperatura(String temperatura){
         //System.out.println(temperatura);
-        String str = temperatura.replace("T","");
-        //System.out.println(str);
-        StringTokenizer tokens=new StringTokenizer(str," ");
-        int id = Integer.parseInt(tokens.nextToken());
-        double valor = Double.parseDouble(tokens.nextToken());
-        Temperatura temp = new Temperatura(id,"NuevaTemp"+id,valor/10.0);
-        System.out.println("Temperatura id"+temp.getId()+" Tempvalor"+temp.getValor());
-        return temp;
+        try {
+            String str = temperatura.replace("T","");
+            //System.out.println(str);
+            StringTokenizer tokens=new StringTokenizer(str," ");
+            int id = Integer.parseInt(tokens.nextToken());
+            double valor = Double.parseDouble(tokens.nextToken());
+            Temperatura temp = new Temperatura(id,"NuevaTemp"+id,valor/10.0);
+            System.out.println("Temperatura id"+temp.getId()+" Tempvalor"+temp.getValor());
+            return temp;
+        }catch (Exception e){
+            System.err.println("la trama para parsear la temperatura no ha llegado correctamente -> trama : " + temperatura);
+            return null;
+        }
     }
 
     @Override
@@ -87,13 +91,14 @@ public class TemperaturaActivity extends AppCompatActivity {
                                             //temperaturasList.add(tratarTemperatura(str));
                                             Temperatura t = tratarTemperatura(str);
                                             //mapaTemperaturas.put(t.getId(),t);
-
-                                            if(mapaTemperaturas.containsKey(t.getId())){
-                                                mapaTemperaturas.get(t.getId()).setValor(t.getValor());
-                                                temperaturaAdapter.notifyDataSetChanged();
-                                            }else{
-                                                mapaTemperaturas.put(t.getId(),t);
-                                                temperaturaAdapter.notifyDataSetChanged();
+                                            if(t != null) {
+                                                if (mapaTemperaturas.containsKey(t.getId())) {
+                                                    mapaTemperaturas.get(t.getId()).setValor(t.getValor());
+                                                    temperaturaAdapter.notifyDataSetChanged();
+                                                } else {
+                                                    mapaTemperaturas.put(t.getId(), t);
+                                                    temperaturaAdapter.notifyDataSetChanged();
+                                                }
                                             }
                                         }
                                     }
