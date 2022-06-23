@@ -23,6 +23,7 @@ public class LuzAdapterMap extends BaseAdapter {
     Activity context;
     Map<Integer, Luz> lucesMap;
     private static LayoutInflater inflater = null;
+    public static boolean modifying = false;
     Caravaino controller = Caravaino.getUnicaInstancia();
     public LuzAdapterMap(Activity context, Map<Integer,Luz> lucesMap) {
         this.context = context;
@@ -54,21 +55,23 @@ public class LuzAdapterMap extends BaseAdapter {
         Switch switch1 = (Switch) itemView.findViewById(R.id.switch1);
         SeekBar slider = (SeekBar) itemView.findViewById(R.id.slider);
 
-        Luz selectedLuz = lucesMap.get(position);
-        slider.setProgress(50);
+
+        Luz selectedLuz = (Luz)getItem(position);
 
         //HACER LISTENER DE CAMBIO DE switch
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
+                modifying = true;
                 selectedLuz.setTurned(isChecked);
                 selectedLuz.setIntensidad(slider.getProgress());
                 System.err.println("STATUS: "+selectedLuz.getStatus());
                 controller.sendMessageBt(selectedLuz.getStatus());
+                modifying = false;
             }
-        });
 
+        });
 
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
@@ -94,9 +97,10 @@ public class LuzAdapterMap extends BaseAdapter {
             }
         });
 
-
+        System.err.println("STATUS LUZ : "+selectedLuz.getStatus());
         switch1.setChecked(selectedLuz.isTurned());
         switch1.setText(selectedLuz.getNombre());
+        slider.setProgress(selectedLuz.getIntensidad());
         return itemView;
     }
 }

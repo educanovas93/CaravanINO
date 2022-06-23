@@ -87,12 +87,14 @@ public class TemperaturaActivity extends AppCompatActivity {
                                     if(str.charAt(0) == new Character('T')){
                                         //temperaturasList.add(tratarTemperatura(str));
                                         Temperatura t = tratarTemperatura(str);
-                                        mapaTemperaturas.put(t.getId(),t);
-                                        temperaturaAdapter.notifyDataSetChanged();
+                                        //mapaTemperaturas.put(t.getId(),t);
+
                                         if(mapaTemperaturas.containsKey(t.getId())){
                                             mapaTemperaturas.get(t.getId()).setValor(t.getValor());
+                                            temperaturaAdapter.notifyDataSetChanged();
                                         }else{
                                             mapaTemperaturas.put(t.getId(),t);
+                                            temperaturaAdapter.notifyDataSetChanged();
                                         }
                                     }
                                 }
