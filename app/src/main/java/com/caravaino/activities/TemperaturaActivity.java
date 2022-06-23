@@ -27,7 +27,10 @@ public class TemperaturaActivity extends AppCompatActivity {
     private TemperaturaAdapterMap temperaturaAdapter;
     Caravaino controlador = Caravaino.getUnicaInstancia();
     Context context = this;
+    private static boolean run = true;
     Timer timer;
+
+
 
     private Temperatura tratarTemperatura(String temperatura){
         //System.out.println(temperatura);
@@ -42,24 +45,19 @@ public class TemperaturaActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        run = false;
+        finish();
+        return;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperaturas);
         temperaturaRecycler = (ListView)findViewById(R.id.temperaturaList);
 
-
-        //Cargamos luces de prueba
-//        Temperatura tempPasillo = new Temperatura(0,"Pasillo",50);
-//        Temperatura tempTrasera = new Temperatura(1,"Trasera",10);
-//        Temperatura tempDelantera= new Temperatura(2,"Delantera",32);
-//        Temperatura tempOtra = new Temperatura(3,"Otra",25);
-//
-//
-//        this.mapaTemperaturas.put(tempPasillo.getId(),tempPasillo);
-//        this.mapaTemperaturas.put(tempTrasera.getId(),tempTrasera);
-//        this.mapaTemperaturas.put(tempDelantera.getId(),tempDelantera);
-//        this.mapaTemperaturas.put(tempOtra.getId(),tempOtra);
-
+        run = true;
 
 
         temperaturaRecycler.setVisibility(View.VISIBLE);
@@ -75,32 +73,37 @@ public class TemperaturaActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(controlador.getBtSocket().getInputStream()));
-                            while(reader.ready()) {
-                                String line = reader.readLine();
-                                //System.out.println(line);
-                                StringTokenizer tokens=new StringTokenizer(line,"#");
-                                while(tokens.hasMoreTokens()){
-                                    String str = tokens.nextToken();
-                                    System.out.println(str);
-                                    if(str.charAt(0) == new Character('T')){
-                                        //temperaturasList.add(tratarTemperatura(str));
-                                        Temperatura t = tratarTemperatura(str);
-                                        //mapaTemperaturas.put(t.getId(),t);
+                        if(run) {
+                            try {
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(controlador.getBtSocket().getInputStream()));
+                                while(reader.ready()) {
+                                    String line = reader.readLine();
+                                    //System.out.println(line);
+                                    StringTokenizer tokens=new StringTokenizer(line,"#");
+                                    while(tokens.hasMoreTokens()){
+                                        String str = tokens.nextToken();
+                                        System.out.println(str);
+                                        if(str.charAt(0) == new Character('T')){
+                                            //temperaturasList.add(tratarTemperatura(str));
+                                            Temperatura t = tratarTemperatura(str);
+                                            //mapaTemperaturas.put(t.getId(),t);
 
-                                        if(mapaTemperaturas.containsKey(t.getId())){
-                                            mapaTemperaturas.get(t.getId()).setValor(t.getValor());
-                                            temperaturaAdapter.notifyDataSetChanged();
-                                        }else{
-                                            mapaTemperaturas.put(t.getId(),t);
-                                            temperaturaAdapter.notifyDataSetChanged();
+                                            if(mapaTemperaturas.containsKey(t.getId())){
+                                                mapaTemperaturas.get(t.getId()).setValor(t.getValor());
+                                                temperaturaAdapter.notifyDataSetChanged();
+                                            }else{
+                                                mapaTemperaturas.put(t.getId(),t);
+                                                temperaturaAdapter.notifyDataSetChanged();
+                                            }
                                         }
                                     }
                                 }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } else {
+                            timer.cancel();
+                            timer.purge();
                         }
                     }
                 });
